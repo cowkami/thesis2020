@@ -1,0 +1,31 @@
+\documentclass[main]{subfiles}
+\begin{document}
+
+\newpage
+\chapter{強化学習}
+強化学習では,環境と,環境内で行動するエージェントをそれぞれ定義する.
+エージェントはある時間$t$において,環境から状態$s_t$を得る.
+環境に対して方策$\pi(\cdot|s_t)$に従って,
+行動$a_t$を起こすことで報酬関数$g(s_t,a_t)$による報酬$r_t$と, 
+次の状態$s_{t+1}$が得られる.
+報酬を最大化する最適な方策を求めることが強化学習の目的である.
+本実験では，強化学習アルゴリズムとして,
+PPO(Proximal Policy Optimization)\cite{ref:proximal_policy}を用いた.
+
+\section{マルコフ決定過程}
+
+\section{実験方法}
+  \subsection{実験装置}
+  \begin{enumerate}
+    \item pc
+    \item ヘッドフォン(audio-technica/ATH-A900)
+  \end{enumerate}
+
+\newpage
+\section{実験結果}
+  図\ref{fig:top_view_measure}と図\ref{fig:simulation_field}ともに刺激2つ分の曖昧な領域があり,
+  また,同定率がほとんど100\%の領域で時折,同定率の低下がみられる.
+  しかし,どちらのグラフも,概ね100\%または0\%に張り付いているのがみてとれる.
+
+
+\end{document}
