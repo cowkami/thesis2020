@@ -22,7 +22,7 @@
 \vspace*{\stretch{1}}
 \begin{figure}[H]
   \centering
-  \includegraphics[width=15cm]{figures/top_view_measure.png}
+  \includegraphics[width=12cm]{figures/top_view_measure.png}
   \caption{
     Top view of measurement system of flight trajectory,
     pulse direction.
@@ -47,16 +47,93 @@
 
 \newpage
 \vspace*{\stretch{1}}
-\begin{table}[H]
-  \caption{A, Eの刺激周波数}\label{tab:ae}
+\begin{figure}[H]
   \centering
-    \begin{tabular}{c|cl}
-      Stimulus Number & Formant frequency\SI{}{[\hertz]} \\
-          & F1 & F2 \\ \hline
-      1 & 760 & 1080 \\
-      2 & 731 & 1656\\
+  \vfill
+  \includegraphics[width=12cm]{figures/pulse_simulation.png}
+  \caption{
+    Pulse simulation algorithm. Agent obtains X,
+    the nearest point of the obstacle in pulse range from itself.
+  }\label{fig:pulse_simulation}
+\end{figure}
+\vspace{\stretch{1}}
+
+\newpage
+\vspace*{\stretch{1}}
+\begin{table}[H]
+  \caption{Agent's actions}\label{tab:agent actions}
+  \centering
+    \begin{tabular}{c|c|c}
+      Action & Description & Value range \\ \hline
+      $\Delta\theta_t$ & Angle to change direction & $[-\pi/4, \pi/4]$ \\
+      $p^{emit}_t$ & Probability to emit pulse & $[0.3, 0.8]$ \\
+      $\phi_t$ & Direction to emit pulse & $[-\pi/4, \pi/4]$ \\
     \end{tabular}
 \end{table}
 \vspace{\stretch{1}}
 
-\end{document}oeu
+\newpage
+\vspace*{\stretch{1}}
+\begin{figure}[H]
+  \centering
+  \vfill
+  \includegraphics[width=10cm]{figures/training_development.png}
+  \caption{
+    Average reward at every eisodes.
+    An increase of the average reward indicates that 
+    the agent has learned the optimal policy.
+  }\label{fig:avearge_reward}
+\end{figure}
+\vspace{\stretch{1}}
+
+\newpage
+\vspace*{\stretch{1}}
+\begin{figure}[H]
+  \centering
+  \vfill
+  \includegraphics[width=15cm]{figures/bat_trajectories.png}
+  \caption{
+    Comparison between the first and last flight of the bat.
+  }\label{fig:bat_trajectories}
+\end{figure}
+\vspace{\stretch{1}}
+
+\newpage
+\vspace*{\stretch{1}}
+\begin{figure}[H]
+  \centering
+  \vfill
+  \includegraphics[width=12cm]{figures/agent_trajectory.png}
+  \caption{
+    Comparison between the first and last trajectory of the agent.
+  }\label{fig:agent_trajectory}
+\end{figure}
+\vspace{\stretch{1}}
+
+\newpage
+\vspace*{\stretch{1}}
+\begin{figure}[H]
+  \centering
+  \vfill
+  \includegraphics[width=15cm]{figures/bat_pulses.png}
+  \caption{
+    A decrease of the number of pulses at the first and last 
+    flight of the bat.
+  }\label{fig:bat_pulse}
+\end{figure}
+\vspace{\stretch{1}}
+
+\newpage
+\vspace*{\stretch{1}}
+\begin{figure}[H]
+  \centering
+  \vfill
+  \includegraphics[width=8cm]{figures/agent_pulses.png}
+  \caption{
+    A decrease of the number of pulses 
+    the first and last episode of the agent.
+  }\label{fig:agent_pulse}
+\end{figure}
+\vspace{\stretch{1}}
+
+\end{document}
