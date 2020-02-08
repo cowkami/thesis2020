@@ -1,0 +1,28 @@
+\documentclass[../main]{subfiles}
+\begin{document}
+\lstset{language=Python, basicstyle=\ttfamily}
+
+\newpage
+
+\chapter*{付録}
+\addcontentsline{toc}{chapter}{付録}
+
+
+\section{プログラムリスト}
+環境に関するプログラムは, Open AIが提供している, 
+pythonライブラリ, Gymをベースに作成した.
+また, シミュレーション環境でのエージェントの振る舞いが 
+複雑であるため, 
+環境に関するプログラム\verb|bat_flying_env.py|と, 
+エージェントの行動に関するプログラム\verb|lidar_bat.py|, 
+の2つに分離して実装した.
+また, PPOに関してはChainerRLの実装を用いた.
+
+\subsection{環境プログラム}
+\subfile{codes/bat_flying_env.tex}
+
+\newpage
+\subsection{エージェントの行動プログラム}
+\subfile{codes/lidar_bat.tex}
+
+\end{document}
