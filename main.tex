@@ -1,10 +1,23 @@
-\documentclass[uplatex]{jsreport}
+\documentclass[11pt, uplatex]{jsreport}
 \usepackage{siunitx} % SI unit
 \usepackage[dvipdfmx]{graphicx} % Put on pictures
 \usepackage{float} % put on images on my own way
 \usepackage{remreset} % configure fig. number
-\usepackage[font=Large, labelsep=period]{caption}
+\usepackage[font=large, labelsep=period]{caption}
 \usepackage{subfiles}
+
+% remove chapter number from (fig. , table and equation) number.
+\makeatletter
+  \@removefromreset{equation}{chapter}
+  \@removefromreset{figure}{chapter}
+  \@removefromreset{table}{chapter}
+\makeatother
+
+\def\thefigure{\arabic{figure}}
+\def\thetable{\arabic{table}}
+\def\theequation{\arabic{equation}}
+
+
 \begin{document}
 
 \tableofcontents

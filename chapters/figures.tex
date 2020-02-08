@@ -9,15 +9,6 @@
 \renewcommand{\figurename}{Fig. } % 図 -> Fig.
 \renewcommand{\tablename}{Table } % 図 -> Fig.
 
-% remove chapter number from (fig. and table) number.
-\makeatletter
-\@removefromreset{figure}{chapter}
-\@removefromreset{table}{chapter}
-\makeatother
-
-\def\thefigure{\arabic{figure}}
-\def\thetable{\arabic{table}}
-
 
 \vspace*{\stretch{1}}
 \begin{figure}[H]
@@ -26,8 +17,7 @@
   \caption{
     Top view of measurement system of flight trajectory,
     pulse direction.
-  }
-  \label{fig:top_view_measure}
+  }\label{fig:top_view_measure}
 \end{figure}
 \vspace{\stretch{1}}
 
@@ -36,7 +26,7 @@
 \begin{figure}[H]
   \centering
   \vfill
-  \includegraphics[width=15cm]{figures/simulation_field.png}
+  \includegraphics[width=14cm]{figures/simulation_field.png}
   \caption{
     Simulation field.
     Start point for agent is (0.2±0.05, 0.7±0.05).
@@ -45,18 +35,6 @@
 \end{figure}
 \vspace{\stretch{1}}
 
-\newpage
-\vspace*{\stretch{1}}
-\begin{figure}[H]
-  \centering
-  \vfill
-  \includegraphics[width=12cm]{figures/pulse_simulation.png}
-  \caption{
-    Pulse simulation algorithm. Agent obtains X,
-    the nearest point of the obstacle in pulse range from itself.
-  }\label{fig:pulse_simulation}
-\end{figure}
-\vspace{\stretch{1}}
 
 \newpage
 \vspace*{\stretch{1}}
@@ -72,6 +50,39 @@
 \end{table}
 \vspace{\stretch{1}}
 
+
+\newpage
+\vspace*{\stretch{1}}
+\begin{figure}[H]
+  \centering
+  \vfill
+  \includegraphics[width=12cm]{figures/pulse_simulation.png}
+  \caption{
+    Pulse simulation algorithm. Agent obtains X,
+    the nearest point of the obstacle in pulse range from itself.
+  }\label{fig:pulse_simulation}
+\end{figure}
+\vspace{\stretch{1}}
+
+
+\newpage
+\vspace*{\stretch{1}}
+\begin{table}[H]
+  \caption{The values of reward function weights.}
+  \label{tab:reward_weights}
+  \centering
+    \begin{tabular}{c|c|c}
+      Weight & Value      & Description \\ \hline
+      $w_1$  & $1$        & moving reward\\
+      $w_2$  & $-10$      & punishment for chaging direction\\
+      $w_3$  & $-10^{-3}$ & punishment for emitting pulse \\
+      $w_4$  & $-10^{-3}$ & punishment for pulse direction\\
+      $w_5$  & $-10^2$    & punishment for bumping\\
+    \end{tabular}
+\end{table}
+\vspace{\stretch{1}}
+
+
 \newpage
 \vspace*{\stretch{1}}
 \begin{figure}[H]
@@ -86,12 +97,13 @@
 \end{figure}
 \vspace{\stretch{1}}
 
+
 \newpage
 \vspace*{\stretch{1}}
 \begin{figure}[H]
   \centering
   \vfill
-  \includegraphics[width=15cm]{figures/bat_trajectories.png}
+  \includegraphics[width=14cm]{figures/bat_trajectories.png}
   \caption{
     Comparison between the first and last flight of the bat.
   }\label{fig:bat_trajectories}
@@ -115,7 +127,7 @@
 \begin{figure}[H]
   \centering
   \vfill
-  \includegraphics[width=15cm]{figures/bat_pulses.png}
+  \includegraphics[width=13cm]{figures/bat_pulses.png}
   \caption{
     A decrease of the number of pulses at the first and last 
     flight of the bat.
@@ -128,7 +140,7 @@
 \begin{figure}[H]
   \centering
   \vfill
-  \includegraphics[width=8cm]{figures/agent_pulses.png}
+  \includegraphics[width=7cm]{figures/agent_pulses.png}
   \caption{
     A decrease of the number of pulses 
     the first and last episode of the agent.
