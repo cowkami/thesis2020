@@ -27,10 +27,20 @@ $$
 しかし, 現実では状態数が多数の場合が多く, 
 組み合わせが膨大になり計算が困難なため, 
 マルコフ性という仮定をおく.
-マルコフ性とは, 
+マルコフ性とは,
 $$P(X_{t+k}=x|X_t=x_t)$$
 と表され, 将来の$X_{t+k}$の確率分布が, 
 現在の値$x_t$にのみ依存する, という性質である.
+特にマルコフ性を満たす確率過程のうち, 
+状態(state)が離散値をとるものをマルコフ連鎖と呼ぶ.
+
+マルコフ決定過程とは, マルコフ連鎖に, 
+行動(action)と報酬(reward)を追加したもので, 
+時刻$t$における状態が$s_t\in S(Sは状態の有限集合)$のとき
+行動決定者(エージェント)が
+
+
+
 
 
 \section{問題設定}
@@ -53,7 +63,7 @@ $$P(X_{t+k}=x|X_t=x_t)$$
 
 \section{Policy Proximal Optimization(PPO)}
 本実験では，強化学習アルゴリズムとして, 
-PPO\cite{ref:proximal_policy}を用いた.
-PPOは方策勾配法
+Policy Proximal Optimization(PPO)\cite{ref:proximal_policy}を用いた.
+PPOは方策$\pi$を陽に求める方策勾配法と, Actor-Critic
 
 \end{document}
