@@ -39,9 +39,9 @@ P(X_{t+k}=x|X_t=x_t)
 マルコフ決定過程とは, マルコフ連鎖に, 
 行動(action)と報酬(reward)を追加したものを指す.
 マルコフ決定過程において, 
-時刻$t$のとき, 状態を$s_t \in S(Sは状態の有限集合)$, 
+時刻$t$のとき, 状態を$s_t \in S(Sは状態の集合)$, 
 エージェントがとる行動を
-$a_t \in \mathcal{A}(\mathcal{A}は行動の有限集合)$, 
+$a_t \in \mathcal{A}(\mathcal{A}は行動の集合)$, 
 と定める. 
 
 \subsection{方策}
@@ -59,7 +59,6 @@ $\theta \in \mathcal{R}^n$を用いて,
 エージェントが最適な行動をとるためには, 
 最適な方策パラメータを求めればよい.
 
-
 \subsection{報酬}
 状態が$s_t$のときに, エージェントは
 方策$\pi_\theta(\cdot|s_t)$によって行動$a_t$を選択する.
@@ -67,33 +66,119 @@ $\theta \in \mathcal{R}^n$を用いて,
 事前に設定した報酬関数$g(s_t, a_t)$によって定まる. 
 最適な方策を評価する基準は, 報酬によって決定する.
 
+\subsection{価値関数}
+$g(s_t, a_t)$の出力を$r_t \in \mathcal{R}$とする.
+$r_t$は状態$s_t$, のときに行動$a_t$によって得られる報酬である.
+行動系列の長さを$\mathcal{T}$, 
+将来得られる報酬に対する割引率$\gamma \in [0, 1)$を用いて表される
+\begin{equation}
+R_t = r_t + \gamma r_{t+1} + \gamma^2 r_{t+2} 
++ ... + \gamma^{T-t+1} r_{T-t+1}
+\end{equation}
+は利得と呼び, 方策を改善する一つの指標となる.
+$\gamma$を係数として掛けるのは, 
+長期的な未来の報酬の影響を小さくするためで, 
+状態遷移が確率的であることから, 
+予測が難しい遠い未来のリスクを避けていると考えることができる.
+利得をさらに発展させた, 
+\begin{equation}
+V^{\pi_\theta}(s) = \mathbb{E}[R_t+1|s_t=s]
+\end{equation}
+は現在の状態から$\pi_\theta$に基づいて行う将来の行動
+による報酬の期待値をとっていて, 状態価値関数と呼ぶ.
+さらにここに行動を加えた
+\begin{equation}
+Q^{\pi_\theta}(s, a) = \mathbb{E}[R_t+1|s_t=s, a_t=a]
+\end{equation}
+を行動価値関数と呼ぶ.
+方策$\pi$は固定して, 
+価値関数からの価値が高い行動を選択し, 
+良い価値関数を推定することによって, 
+良い方策を得るようなアルゴリズムを価値ベースの手法と呼ぶ.
+また, 価値関数を深層ニューラルネットによって
+関数近似する手法が高い性能を示している(Deep Q-Learning).
+
+状態価値関数と行動価値関数の差をとると,
+\begin{equation}
+A^{\pi_\theta}(s, a) = 
+Q^{\pi_\theta}(s, a) - V^{\pi_\theta}(s)
+\end{equation}
+が得られる. アドバンテージ関数と呼ばれ, 
+状態価値に対する行動価値の良さを相対的に評価できる.
+以下, アドバンテージ関数を単に$A_t$と書く.
+
+\section{方策勾配法}
+最適な方策を計算するための方法は, 
+目的と条件により多岐に渡るが, 
+本研究では方策勾配法がベースの手法を用いた.
+方策勾配法を用いた手法は連続空間でのタスクで好成績を収めていて, 
+本研究で学習したいタスクが, 
+状態空間, 行動空間がともに連続であることから, 
+本研究のタスクにも適合すると考えたためである.
+
+方策勾配法では, 方策$\pi_\theta$を改善するような
+目的関数$f(\theta)$を設定し, 
+$f(\theta)$を方策パラメータ$\theta$に関して微分し, 
+得られた勾配から, 目的関数を最適化するように, 
+方策パラメータを更新する.
+\begin{equation}
+\theta_{new} = \theta + \alpha \nabla_{\theta} f(\theta)
+\end{equation}
+以上の操作を繰り返し行うことで
+最適なパラメータを求める.
 
 
-
-\section{問題設定}
-$g(s_t, a_t)$の出力結果を$R_t \in \mathcal{R}$とする.
-事前に設定されたパラメータ
-割引率$\gamma \in [0, 1)$を用いて, 
-
-\section{方策の探索}
-方策を直接求める.
-
-エージェントはある時刻$t$において, 環境から状態$s_t$を得る.
-環境に対して方策$\pi(\cdot|s_t)$に従って, 
-行動$a_t$を起こすことで報酬関数$g(s_t,a_t)$による報酬$r_t$と, 
-次の状態$s_{t+1}$が得られる. 
-報酬を最大化する最適な方策を求めることが強化学習の目的である.
+\section{Actor-Critic}
+エージェントの学習器を, 
+行動の振る舞いに関するActor(ここでは方策に相当する)と
+その行動を評価するCritic(価値関数)に分離して交互に学習を行う方式である.
+ActorとCriticを深層ニューラルネットによって 
+関数近似し学習するアルゴリズムAsynchronous Actor-Critic Agents
+(A3C)はDeep Q-Learnnigよりも
+Atari(複数種類のゲーム)タスクにおいて好成績を獲得している.
+\cite{ref:actor_critic}
+また, A3Cでは価値関数として, 
+アドバンテージ関数$A^{\pi_\theta}(s, a)$を用いているのも
+特徴である.
 
 
-\section{試行}
-制御対象が, ある一連の動作を繰り返すようなタスクを行う場合, 
-試行には
+\section{Proximal Policy Optimization(PPO)\cite{ref:proximal_policy}}
+PPOは方策勾配法がベースのアルゴリズムである.
+Actor-Critic方式で実装されていて, 
+シンプルなアルゴリズムながら
+連続空間でのタスクで著しく良い成績を記録している.
 
+ランダムな方策$\pi_{\theta_{old}}$を用いて,
+環境で行動を行い, 系列データ($T$ステップ)を取得する.(Actor)
+このとき得られた報酬($r_t$), 行動($a_t$), 状態($s_t$)から, 
+$A^{\pi_{\theta_{old}}}_t$を計算する.(Critic)
+これを用いて
+\begin{equation}
+\label{eq:lclip}
+L(\theta) = \mathbb{E}_t[\min(ra_t(\theta)A_t, 
+  clip(ra_t(\theta), 1-\epsilon, 1+\epsilon)A_t)]
+\end{equation}
+を目的関数として確率的方策勾配法によって最適化した.
+ここで, 
+\begin{equation}
+ra_t(\theta)=
+\frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{old}}(a_t|s_t)}
+\end{equation}
+であり, 更新する方策と更新前の方策の確率の比を表している. 
+また, $\epsilon=0.2$に設定してある.
+$ra_t(\theta)A_t$が大きくなりそうなときは, 
+$clip(ra_t(\theta), 1-\epsilon, 1+\epsilon)A_t)$
+の項が働き, ある範囲で収まるような構造になっていて, 
+方策パラメータ$\theta$が過剰に改善されたり, 
+過剰に悪くなることを阻止している.
+その結果, 学習を安定させることに成功し, 
+各タスクでの好成績に繋がり, また, 複雑なタスクへの汎用性も高くなった.
 
-\section{Policy Proximal Optimization(PPO)}
-本実験では，強化学習アルゴリズムとして, 
-Policy Proximal Optimization(PPO)
-\cite{ref:proximal_policy}を用いた.
-PPOは方策$\pi$を陽に求める方策勾配法と, Actor-Critic
+本研究で行われたシミュレーションは, 
+エージェントが行動として, 
+移動と環境推定を同時に行うという, 
+少し複雑なタスクであるため,
+このようなロバストで高精度なアルゴリズムを用いた.
+
 
 \end{document}
